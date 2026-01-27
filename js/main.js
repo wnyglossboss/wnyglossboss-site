@@ -59,3 +59,50 @@ if (quoteForm) {
     }
   });
 }
+
+// Desktop services dropdown toggle (click)
+(function(){
+  const dropdowns = document.querySelectorAll('.dropdown');
+  if (!dropdowns.length) return;
+
+  function closeAll() {
+    dropdowns.forEach(dd => {
+      const btn = dd.querySelector('.dropbtn');
+      const menu = dd.querySelector('.dropdown-menu');
+      if (menu) menu.style.display = 'none';
+      if (btn) btn.setAttribute('aria-expanded','false');
+    });
+  }
+
+  dropdowns.forEach(dd => {
+    const btn = dd.querySelector('.dropbtn');
+    const menu = dd.querySelector('.dropdown-menu');
+    if (!btn || !menu) return;
+
+    // start closed
+    menu.style.display = 'none';
+    btn.setAttribute('aria-expanded','false');
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = menu.style.display === 'block';
+      closeAll();
+      if (!isOpen) {
+        menu.style.display = 'block';
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+
+    // keep clicks inside menu from closing immediately
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
+  document.addEventListener('click', () => closeAll());
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAll();
+  });
+})();
+
