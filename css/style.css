@@ -1001,3 +1001,27 @@ header { overflow: visible; }
 .brand { display:flex; align-items:center; gap:14px; }
 .brand img { height:auto; max-height:90px; width:auto; object-fit:contain; display:block; }
 @media (max-width:768px){ .brand img{ max-height:65px; } }
+
+
+/* --- Nav behavior hardening (desktop vs mobile) --- */
+@media (min-width: 761px){
+  .navlinks{display:flex !important;}
+  .hamburger{display:none !important;}
+  .mobile-panel{display:none !important;}
+}
+
+@media (max-width: 760px){
+  header{
+    background: var(--bg) !important;
+    backdrop-filter: none !important;
+  }
+  .mobile-panel{
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .mobile-panel a,
+  .mobile-panel details{
+    background: rgba(8,14,24,.85) !important;
+  }
+}
+
